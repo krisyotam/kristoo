@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  /* Gentoo purple: lavender whites, muted violet borders */
-  --bg: 270 30% 95%;
-  --bg-subtle: 270 25% 90%;
-  --fg: 270 25% 12%;
-  --fg-secondary: 270 15% 30%;
-  --fg-tertiary: 270 15% 48%;
-  --fg-quaternary: 270 10% 60%;
-  --border: 270 20% 82%;
-  --surface: 270 35% 97%;
-  --accent: 355 55% 65%;
-  --accent-hover: 355 60% 55%;
+  --bg: 0 0% 98%;
+  --bg-subtle: 0 0% 95%;
+  --fg: 0 0% 8%;
+  --fg-secondary: 0 0% 30%;
+  --fg-tertiary: 0 0% 50%;
+  --fg-quaternary: 0 0% 65%;
+  --border: 0 0% 88%;
+  --surface: 0 0% 100%;
 
   /* legacy compat */
   --background: var(--bg);
@@ -23,17 +20,14 @@
 }
 
 .dark {
-  /* Deep violet night */
-  --bg: 270 30% 7%;
-  --bg-subtle: 270 25% 12%;
-  --fg: 270 20% 92%;
-  --fg-secondary: 270 15% 70%;
-  --fg-tertiary: 270 12% 50%;
-  --fg-quaternary: 270 8% 40%;
-  --border: 270 20% 18%;
-  --surface: 270 30% 9%;
-  --accent: 355 45% 55%;
-  --accent-hover: 355 50% 45%;
+  --bg: 0 0% 6%;
+  --bg-subtle: 0 0% 10%;
+  --fg: 0 0% 95%;
+  --fg-secondary: 0 0% 75%;
+  --fg-tertiary: 0 0% 55%;
+  --fg-quaternary: 0 0% 40%;
+  --border: 0 0% 16%;
+  --surface: 0 0% 8%;
 
   --background: var(--bg);
   --foreground: var(--fg);
@@ -59,27 +53,6 @@ body {
   background: hsl(var(--bg));
   color: hsl(var(--fg));
   font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-}
-
-/* CSS Hover Card */
-@layer base {
-  .hover-card-root { position: relative; }
-  .hover-card-content {
-    display: none;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: calc(100% + 4px);
-    opacity: 0;
-    transition: opacity 0.15s ease;
-    pointer-events: none;
-  }
-  .hover-card-root:hover > .hover-card-content,
-  .hover-card-root:focus-within > .hover-card-content {
-    display: block;
-    opacity: 1;
-    pointer-events: auto;
-  }
 }
 
 /* smooth transitions for theme toggle */

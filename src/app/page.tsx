@@ -171,52 +171,22 @@ function HoverLink({
   )
 }
 
-/* ─── Indicator popover ───────────────────────────────────────────────────── */
+/* ─── HoverCard (pure CSS, matches krisyotam.com) ────────────────────────── */
 
-function IndicatorWithPopover({
-  label,
-  explanation,
-  opacity,
-}: {
-  label: string
-  explanation: string
-  opacity: number
-}) {
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
-    }
-    document.addEventListener("mousedown", handleClick)
-    return () => document.removeEventListener("mousedown", handleClick)
-  }, [open])
-
+function HoverCard({ trigger, title, text }: { trigger: React.ReactNode; title: string; text: string }) {
   return (
-    <div ref={ref} className="relative inline-flex items-center gap-1 cursor-help select-none" style={{ color: fg, opacity }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onClick={() => setOpen(o => !o)}>
-      <InfoIcon />
-      <span className="font-medium">{label}</span>
-      {open && (
-        <div
-          className="absolute top-full left-1/2 mt-2 z-50 w-72 rounded border p-3 text-xs"
-          style={{
-            transform: "translateX(-50%)",
-            backgroundColor: "hsl(var(--bg))",
-            borderColor: bdr,
-            color: fg2,
-            fontFamily: "serif",
-            whiteSpace: "pre-wrap",
-            lineHeight: "1.6",
-          }}
-        >
-          {explanation}
+    <span className="hover-card-root relative inline-block">
+      {trigger}
+      <div
+        className="hover-card-content z-50 w-80 rounded-md border p-4 shadow-md text-sm font-serif"
+        style={{ backgroundColor: "hsl(var(--bg))", borderColor: bdr, color: fg }}
+      >
+        <div className="space-y-2">
+          <h4 className="font-medium" style={{ color: fg }}>{title}</h4>
+          <p className="whitespace-pre-wrap" style={{ color: fg3 }}>{text}</p>
         </div>
-      )}
-    </div>
+      </div>
+    </span>
   )
 }
 
@@ -285,22 +255,41 @@ function PageHeader({
         )}
 
         <div className="flex flex-wrap justify-center items-center gap-x-3 text-sm font-mono mb-2">
-          <IndicatorWithPopover
-            label={`status: ${status}`}
-            explanation={STATUS_EXPLANATION}
-            opacity={getStatusOpacity(status)}
+          <HoverCard
+            title="Status Indicator"
+            text={STATUS_EXPLANATION}
+            trigger={
+              <div className="flex items-center gap-1 cursor-help" style={{ color: fg, opacity: getStatusOpacity(status) }}>
+                <InfoIcon />
+                <span className="font-medium">status: {status}</span>
+              </div>
+            }
           />
+
           <span style={{ color: fg4 }}>&middot;</span>
-          <IndicatorWithPopover
-            label={`certainty: ${confidence}`}
-            explanation={CONFIDENCE_EXPLANATION}
-            opacity={getConfidenceOpacity(confidence)}
+
+          <HoverCard
+            title="Confidence Rating"
+            text={CONFIDENCE_EXPLANATION}
+            trigger={
+              <div className="flex items-center gap-1 cursor-help" style={{ color: fg, opacity: getConfidenceOpacity(confidence) }}>
+                <InfoIcon />
+                <span className="font-medium">certainty: {confidence}</span>
+              </div>
+            }
           />
+
           <span style={{ color: fg4 }}>&middot;</span>
-          <IndicatorWithPopover
-            label={`importance: ${importance}/10`}
-            explanation={IMPORTANCE_EXPLANATION}
-            opacity={getImportanceOpacity(importance)}
+
+          <HoverCard
+            title="Importance Rating"
+            text={IMPORTANCE_EXPLANATION}
+            trigger={
+              <div className="flex items-center gap-1 cursor-help" style={{ color: fg, opacity: getImportanceOpacity(importance) }}>
+                <InfoIcon />
+                <span className="font-medium">importance: {importance}/10</span>
+              </div>
+            }
           />
         </div>
 
